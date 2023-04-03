@@ -134,6 +134,7 @@ const generateRandomReactions = (num) => {
 
 //generate random thoughts
 const generateRandomThoughts = (num) => {
+  let thoughts = [];
   for (let i = 0; i < num; i++) {
     thoughts.push({
       thoughtText: getRandomThoughtText(),

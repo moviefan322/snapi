@@ -13,9 +13,9 @@ connection.once("open", async () => {
     await User.deleteMany({});
     await Thought.deleteMany({});
     const users = await User.create(generateRandomUsers(10));
-    const thoughts = await Thought.create(generateRandomThoughts(users, 100));
+    const thoughts = await Thought.create(generateRandomThoughts(users, 10));
     const reactions = await Thought.create(
-      generateRandomReactions(users, thoughts, 100)
+      generateRandomReactions(users, thoughts, 10)
     );
     console.log("users", users.length);
     console.log("thoughts", thoughts.length);
