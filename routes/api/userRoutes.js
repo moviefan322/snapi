@@ -67,7 +67,8 @@ router.put("/:id", async (req, res) => {
 //delete to remove user by its _id
 
 router.delete("/:id", async (req, res) => {
-  await User.deleteOne({ _id: req.params.id })
+  await User.deleteOne({ _id: req.params.id });
+  Thought.remove({ username: req.params.id })
     .then((dbUserData) => res.json(dbUserData))
     .catch((err) => {
       console.log(err);
