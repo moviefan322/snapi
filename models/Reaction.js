@@ -20,4 +20,12 @@ const reactionSchema = new Schema(
   }
 );
 
+reactionSchema.virtual("CreatedAt").get(function () {
+  return (
+    this.createdAt.toLocaleTimeString() +
+    " on " +
+    this.createdAt.toLocaleDateString()
+  );
+});
+
 module.exports = reactionSchema;
