@@ -21,6 +21,14 @@ thoughtSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });
 
+thoughtSchema.virtual("CreatedAt").get(function () {
+  return (
+    this.createdAt.toLocaleTimeString() +
+    " on " +
+    this.createdAt.toLocaleDateString()
+  );
+});
+
 const Thought = model("Thought", thoughtSchema);
 
 module.exports = Thought;
