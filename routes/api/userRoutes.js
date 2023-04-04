@@ -78,21 +78,36 @@ router.delete("/:id", async (req, res) => {
 //post to add a new friend to a user's friend list
 ///api/users/:userId/friends/:friendId
 router.post("/:userId/friends/:friendId", async (req, res) => {
-    await User.findOneAndUpdate(
-        { _id: req.params.userId },
-        { $push: { friends: req.params.friendId } },
-        { new: true }
-    )
-        .then((dbUserData) => {
-            if (!dbUserData) {
-                res.status(404).json({ message: "No user found with this id!" });
-                return;
-            }
-            res.json(dbUserData);
-        })
-        .catch((err) => res.json(err));
+  await User.findOneAndUpdate(
+    { _id: req.params.userId },
+    { $push: { friends: req.params.friendId } },
+    { new: true }
+  )
+    .then((dbUserData) => {
+      if (!dbUserData) {
+        res.status(404).json({ message: "No user found with this id!" });
+        return;
+      }
+      res.json(dbUserData);
+    })
+    .catch((err) => res.json(err));
 });
 
 //delete to remove a friend from a user's friend list
+router.delete("/:userId/friends/:friendId", async (req, res) => {
+  await User.findOneAndUpdate(
+    { _id: req.params.userId },
+    { $pull: { friends: req.params.friendId } },
+    { new: true }
+  )
+    .then((dbUserData) => {
+      if (!dbUserData) {
+        res.status(404).json({ message: "No user found with this id!" });
+        return;
+      }
+      res.json(dbUserData);
+    })
+    .catch((err) => res.json(err));
+});
 
 module.exports = router;
