@@ -44,6 +44,15 @@ router.get("/:id", async (req, res) => {
 
 //post a new user
 
+router.post("/", async (req, res) => {
+  await User.create(req.body)
+    .then((dbUserData) => res.json(dbUserData))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
+
 //put to update a user by its _id
 
 //delete to remove user by its _id
