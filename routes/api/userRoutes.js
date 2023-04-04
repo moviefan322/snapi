@@ -66,8 +66,32 @@ router.put("/:id", async (req, res) => {
 
 //delete to remove user by its _id
 
+router.delete("/:id", async (req, res) => {
+  await User.deleteOne({ _id: req.params.id })
+    .then((dbUserData) => res.json(dbUserData))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
+
 //post to add a new friend to a user's friend list
 ///api/users/:userId/friends/:friendId
+router.post("/:userId/friends/:friendId", async (req, res) => {
+    await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $push: { friends: req.params.friendId } },
+        { new: true }
+    )
+        .then((dbUserData) => {
+            if (!dbUserData) {
+                res.status(404).json({ message: "No user found with this id!" });
+                return;
+            }
+            res.json(dbUserData);
+        })
+        .catch((err) => res.json(err));
+});
 
 //delete to remove a friend from a user's friend list
 
