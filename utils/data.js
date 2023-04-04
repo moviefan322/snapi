@@ -46,6 +46,32 @@ const names = [
   "Zishan",
   "Ziya",
   "Ziyaan",
+  "Zohair",
+  "Jambiib",
+  "Jameel",
+  "Jamil",
+  "Jamir",
+  "Jamison",
+  "Jammal",
+  "Jan",
+  "Jared",
+  "Jari",
+  "Jarod",
+  "Jarred",
+  "Jarrett",
+  "Jarrod",
+  "Jarvis",
+  "Jasen",
+  "Jasim",
+  "Jason",
+  "Jasper",
+  "Javier",
+  "Jawad",
+  "Jaweed",
+  "Jawid",
+  "Jax",
+  "Jaxon",
+  "Jaxson",
   "Zohaib",
   "Zohair",
   "Zoubaeir",
@@ -121,7 +147,7 @@ const getRandomReactionBody = () => getRandomArrItem(possibleResponses);
 const getRandomThoughtText = () => getRandomArrItem(descriptionsBodies);
 
 //generate random reactions
-const generateRandomReactions = (num) => {
+const generateRandomReactions = (num, users) => {
   const reactions = [];
   for (let i = 0; i < num; i++) {
     reactions.push({
@@ -134,12 +160,13 @@ const generateRandomReactions = (num) => {
 
 //generate random thoughts
 const generateRandomThoughts = (num) => {
-  let thoughts = [];
+  const users = generateRandomUsers(num);
+  const thoughts = [];
   for (let i = 0; i < num; i++) {
     thoughts.push({
       thoughtText: getRandomThoughtText(),
       username: getRandomArrItem(users).username,
-      reactions: generateRandomReactions(),
+      reactions: generateRandomReactions(5, users),
     });
   }
   return thoughts;
@@ -149,4 +176,5 @@ module.exports = {
   generateRandomUsers,
   generateRandomReactions,
   generateRandomThoughts,
+  getRandomArrItem,
 };
