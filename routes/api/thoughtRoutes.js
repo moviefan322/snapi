@@ -73,9 +73,35 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE to remove a thought by its _id
+router.delete("/:id", async (req, res) => {
+  await Thought.findOneAndDelete({ _id: req.params.id })
+    .then((dbThoughtData) => {
+      if (!dbThoughtData) {
+        res.status(404).json({ message: "No thought found with this id!" });
+        return;
+      }
+      res.json(dbThoughtData);
+    })
+    .catch((err) => res.json(err));
+});
 
 ///api/thoughts/:thoughtId/reactions
 // post to create a reaction stored in a single thought's reactions array field
+router.post("/:thoughtId/reactions", async (req, res) => {
+  await Thought.findOneAndUpdate(
+    { _id: req.params.thoughtId },
+    { $push: { reactions: req.body } },
+    { new: true }
+  )
+    .then((dbThoughtData) => {
+      if (!dbThoughtData) {
+        res.status(404).json({ message: "No thought found with this id!" });
+        return;
+      }
+      res.json(dbThoughtData);
+    })
+    .catch((err) => res.json(err));
+});
 
 // delete to pull and remove a reaction by the reaction's reactionId value
 
