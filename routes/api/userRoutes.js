@@ -55,6 +55,15 @@ router.post("/", async (req, res) => {
 
 //put to update a user by its _id
 
+router.put("/:id", async (req, res) => {
+  await User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+    .then((dbUserData) => res.json(dbUserData))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
+
 //delete to remove user by its _id
 
 //post to add a new friend to a user's friend list
